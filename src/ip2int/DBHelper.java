@@ -19,6 +19,9 @@ import java.util.logging.Logger;
  */
 public class DBHelper {
     private Connection conn = null;
+    public DBHelper() {
+        this.estConn();
+    }
     public void estConn(){
         if(conn != null){
             return;
@@ -54,6 +57,28 @@ public class DBHelper {
             //Logger.getLogger(DBHelper.class.getName()).log(Level.SEVERE, null, ex);
         }
         
+    }
+    
+    public String query(String ip){
+        ResultSet rs = null;
+        Statement s = null;
+        IPS ips = new IPS();
+        long ipi = ips.ip2int(ip);
+        try{
+            s = conn.createStatement();
+            rs = s.executeQuery("SELECT * FROM geoip WHERE lower <= "+ipi+" and "+ipi+" <= upper");
+        }catch(Exception e){
+            System.out.println("Err select");
+        }
+        
+        String country = null;
+        try {
+            rs.next();
+            country = rs.getString("country");
+        } catch (SQLException ex) {
+            //Logger.getLogger(DBHelper.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return country;
     }
     
     public void truncate(){

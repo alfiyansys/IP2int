@@ -18,10 +18,14 @@ public class IP2Int {
      */
     public static void main(String[] args) {
         IPS ipc = new IPS();
-        CSVHandler hand = new CSVHandler("F:/geoipsensei/dbip-full-2014-11.csv/dbip-full.csv");
-        hand.load();
+        //CSVHandler hand = new CSVHandler("F:/geoipsensei/dbip-full-2014-11.csv/dbip-full.csv");
+        //hand.load();
         
-        //System.out.println(ipc.ip2int("180.254.51.199"));
+        String ip = "103.24.56.242";
+        System.out.println(ip +" = "+ ipc.ip2int(ip));
+        
+        DBHelper db = new DBHelper();
+        System.out.println("Location: " + db.query(ip));
     }
     
 }

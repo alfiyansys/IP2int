@@ -17,7 +17,6 @@ public class IP2Int {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
         IPS ipc = new IPS();
         CSVHandler hand = new CSVHandler("F:/geoipsensei/dbip-full-2014-11.csv/dbip-full.csv");
         hand.load();

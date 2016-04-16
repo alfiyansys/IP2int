@@ -29,12 +29,18 @@ public class CSVHandler {
         BufferedReader br = null;
         String line = "";
         String cvsSplitBy = ",";
+        
+        DBHelper db = new DBHelper();
 
         IPS ips = new IPS();
 
         try {
             br = new BufferedReader(new FileReader(csvFile));
             int i = 0; //Limiter
+            
+            db.estConn();
+            db.truncate();
+            
             while ((line = br.readLine()) != null) {
                 //Limiter
                 /*
@@ -50,9 +56,16 @@ public class CSVHandler {
                 for (int j = 0; j < elements.length; j++) {
                     elements[j] = elements[j].replace("\"", "");
                 }
-
-                //System.out.println(ips.ip2int(elements[0]) + " " + ips.ip2int(elements[1]) +" "+ elements[2]);                    
+                
+                long lower = ips.ip2int(elements[0]);
+                long upper = ips.ip2int(elements[1]);
+                String country = elements[2];
+                System.out.println(lower + " " + upper +" "+ country);
+                
+                db.insertData(lower, upper, country);
             }
+            
+            db.closeConn();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {

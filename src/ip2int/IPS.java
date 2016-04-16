@@ -5,6 +5,7 @@
  */
 package ip2int;
 
+import static java.lang.Math.pow;
 import java.util.Arrays;
 
 /**
@@ -17,7 +18,7 @@ public class IPS {
         String[] array = ip.split("\\.",-1);
         long[] ipoct = Arrays.stream(array).mapToLong(Long::parseLong).toArray();
         
-        num = (ipoct[0]*(256*256*256))+(ipoct[1]*(256*256))+(ipoct[2]*(256))+(ipoct[3]);
+        num = (long)((ipoct[0]*(pow(256,3)))+(ipoct[1]*(pow(256,2)))+(ipoct[2]*(pow(256,1)))+(ipoct[3]));
         return num;        
     }
 }
